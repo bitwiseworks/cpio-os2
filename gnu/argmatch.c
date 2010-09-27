@@ -211,7 +211,7 @@ argmatch_to_argument (const char *value,
 /*
  * Based on "getversion.c" by David MacKenzie <djm@gnu.ai.mit.edu>
  */
-char *program_name;
+static char *program_name;
 
 /* When to make backup files.  */
 enum backup_type

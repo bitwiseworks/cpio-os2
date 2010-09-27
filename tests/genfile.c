@@ -55,7 +55,7 @@ enum pattern
 };
 
 /* The name this program was run with. */
-const char *program_name;
+static const char *program_name;
 
 /* Name of file to generate */
 static char *file_name;

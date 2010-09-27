@@ -728,6 +728,11 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
+#ifdef __EMX__
+    _fsetmode( stdin, "b");
+    _fsetmode( stdout, "b");
+#endif
+
   set_program_name (argv[0]);
   argp_version_setup ("cpio", program_authors);
   process_args (argc, argv);

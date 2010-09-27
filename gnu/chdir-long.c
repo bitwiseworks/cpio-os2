@@ -213,7 +213,7 @@ chdir_long (char *dir)
 # include "closeout.h"
 # include "error.h"
 
-char *program_name;
+static char *program_name;
 
 int
 main (int argc, char *argv[])
