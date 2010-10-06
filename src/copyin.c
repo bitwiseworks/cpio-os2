@@ -542,10 +542,17 @@ copyin_regular_file (struct cpio_file_stat* file_hdr, int in_file_des)
       delayed_seek_count = 0;
     }
 
+#ifdef __KLIBC__
+  if (close (out_file_des) < 0)
+    close_error (file_hdr->c_name);
+  set_perms (-1, file_hdr);
+
+#else
   set_perms (out_file_des, file_hdr);
 
   if (close (out_file_des) < 0)
     close_error (file_hdr->c_name);
+#endif
 
   if (archive_format == arf_crcascii)
     {

@@ -728,9 +728,9 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-#ifdef __EMX__
-    _fsetmode( stdin, "b");
-    _fsetmode( stdout, "b");
+#ifdef __KLIBC__
+  if (!isatty(fileno(stdin))) _fsetmode( stdin, "b");
+  if (!isatty(fileno(stdout))) _fsetmode( stdout, "b");
 #endif
 
   set_program_name (argv[0]);
