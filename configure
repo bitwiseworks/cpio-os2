@@ -43320,6 +43320,10 @@ fi
       LIBS="$am_save_LIBS"
 
 fi
+
+#YD force iconv
+am_cv_func_iconv_works=yes
+
 { $as_echo "$as_me:$LINENO: result: $am_cv_func_iconv_works" >&5
 $as_echo "$am_cv_func_iconv_works" >&6; }
     case "$am_cv_func_iconv_works" in
@@ -45761,7 +45765,8 @@ $debug ||
 if test -n "$CONFIG_FILES"; then
 
 
-ac_cr=''
+ac_cr='
+'
 ac_cs_awk_cr=`$AWK 'BEGIN { print "a\rb" }' </dev/null 2>/dev/null`
 if test "$ac_cs_awk_cr" = "a${ac_cr}b"; then
   ac_cs_awk_cr='\\r'
