@@ -641,6 +641,14 @@ process_copy_out ()
 	  continue;
 	}
 
+#ifdef __KLIBC__
+      /* Remove ending \r due to binary stdin.  */
+      if (input_name.ds_string[strlen(input_name.ds_string)-1] == '\r')
+	{
+	  input_name.ds_string[strlen(input_name.ds_string)-1] = 0;
+	}
+#endif // __KLIBC__
+
       /* Process next file.  */
       if ((*xstat) (input_name.ds_string, &file_stat) < 0)
 	stat_error (input_name.ds_string);

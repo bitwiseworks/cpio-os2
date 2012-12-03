@@ -87,6 +87,14 @@ process_copy_pass ()
 	  continue;
 	}
 
+#ifdef __KLIBC__
+      /* Remove ending \r due to binary stdin.  */
+      if (input_name.ds_string[strlen(input_name.ds_string)-1] == '\r')
+	{
+	  input_name.ds_string[strlen(input_name.ds_string)-1] = 0;
+	}
+#endif // __KLIBC__
+
       /* Check for current directory and ignore it if found.  */
       if (input_name.ds_string[0] == '.'
 	  && (input_name.ds_string[1] == '\0'
