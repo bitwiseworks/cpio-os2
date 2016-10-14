@@ -25,7 +25,7 @@ m4_define([AT_SKIP_TEST],[exit 77])
 
 AT_INIT
 
-AT_TESTED([cpio])
+AT_TESTED([cpio.exe])
 
 m4_include([version.at])
 

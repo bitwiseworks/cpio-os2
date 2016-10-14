@@ -37,7 +37,10 @@ AC_DEFUN([gl_FUNC_UTIMES],
 int
 main ()
 {
-  static struct timeval timeval[2] = {{9, 10}, {999999, 999999}};
+  /* On OS/2, file timestamps must be on or after 1980 in local time,
+     with an even number of seconds.  */
+  static struct timeval timeval[2] = {{315620000 + 10, 10},
+                                      {315620000 + 1000000, 999998}};
   struct stat sbuf;
   char const *file = "conftest.utimes";
   FILE *f;
