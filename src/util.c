@@ -1230,7 +1230,11 @@ set_perms (int fd, struct cpio_file_stat *header)
   /* chown may have turned off some permissions we wanted. */
   if (fchmod_or_chmod (fd, header->c_name, header->c_mode) < 0)
     chmod_error_details (header->c_name, header->c_mode);
+#ifndef __OS2__
   if (retain_time_flag)
+#else
+  if (retain_time_flag && fd == -1)
+#endif
     set_file_times (fd, header->c_name, header->c_mtime, header->c_mtime);
 }
 

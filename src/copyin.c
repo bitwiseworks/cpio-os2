@@ -382,6 +382,11 @@ create_final_defers ()
 
       if (close (out_file_des) < 0)
 	close_error (d->header.c_name);
+#ifdef __OS2__
+      if (retain_time_flag)
+        set_file_times (-1, d->header.c_name, d->header.c_mtime,
+			d->header.c_mtime);
+#endif
 
     }
 }
@@ -527,6 +532,12 @@ copyin_regular_file (struct cpio_file_stat* file_hdr, int in_file_des)
 
   if (close (out_file_des) < 0)
     close_error (file_hdr->c_name);
+
+#ifdef __OS2__
+  if (retain_time_flag)
+    set_file_times (-1, file_hdr->c_name, file_hdr->c_mtime,
+		    file_hdr->c_mtime);
+#endif
 
   if (archive_format == arf_crcascii)
     {

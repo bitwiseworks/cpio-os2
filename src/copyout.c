@@ -228,11 +228,18 @@ writeout_defered_file (struct cpio_file_stat *header, int out_file_des)
 
   tape_pad_output (out_file_des, file_hdr.c_filesize);
 
+#ifndef __OS2__
   if (reset_time_flag)
     set_file_times (in_file_des, file_hdr.c_name, file_hdr.c_mtime,
 		    file_hdr.c_mtime);
+#endif
   if (close (in_file_des) < 0)
     close_error (header->c_name);
+#ifdef __OS2__
+  if (reset_time_flag)
+    set_file_times (-1, file_hdr.c_name, file_hdr.c_mtime,
+		    file_hdr.c_mtime);
+#endif
 }
 
 /* When writing newc and crc format archives we defer multiply linked
@@ -738,12 +745,20 @@ process_copy_out ()
 
 	      tape_pad_output (out_file_des, file_hdr.c_filesize);
 
+#ifndef __OS2__
 	      if (reset_time_flag)
                 set_file_times (in_file_des,
 				orig_file_name,
                                 file_stat.st_atime, file_stat.st_mtime);
+#endif
 	      if (close (in_file_des) < 0)
 		close_error (orig_file_name);
+#ifdef __OS2__
+	      if (reset_time_flag)
+                set_file_times (-1,
+				orig_file_name,
+                                file_stat.st_atime, file_stat.st_mtime);
+#endif
 	      break;
 
 	    case CP_IFDIR:

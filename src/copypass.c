@@ -202,6 +202,7 @@ process_copy_pass ()
 	      set_copypass_perms (out_file_des,
 				  output_name.ds_string, &in_file_stat);
 
+#ifndef __OS2__
 	      if (reset_time_flag)
                 {
                   set_file_times (in_file_des,
@@ -213,13 +214,26 @@ process_copy_pass ()
                                   in_file_stat.st_atime,
                                   in_file_stat.st_mtime);
 	        } 
-
+#endif
 	      if (close (in_file_des) < 0)
 		close_error (input_name.ds_string);
 
 	      if (close (out_file_des) < 0)
 		close_error (output_name.ds_string);
 
+#ifdef __OS2__
+	      if (reset_time_flag)
+                {
+                  set_file_times (-1,
+				  input_name.ds_string,
+                                  in_file_stat.st_atime,
+                                  in_file_stat.st_mtime);
+                  set_file_times (-1,
+				  output_name.ds_string,
+                                  in_file_stat.st_atime,
+                                  in_file_stat.st_mtime);
+	        } 
+#endif
 	      warn_if_file_changed(input_name.ds_string, in_file_stat.st_size,
                                    in_file_stat.st_mtime);
 	    }
